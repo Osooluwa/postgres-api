@@ -3,28 +3,29 @@ import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
-import itemsRouter from './routes/items.js';
+import usersRouter from './routes/users.js';
 
 dotenv.config();
-
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Middlewares
 app.use(cors());
-app.use(express.json());
 app.use(morgan('dev'));
+app.use(express.json());
 
+// Routes
 app.get('/', (req, res) => {
-  res.json({ message: 'Welcome to the Express API' });
+  res.send('Welcome to the Users API');
 });
 
-app.use('/', itemsRouter);
+app.use('/users', usersRouter);
 
-// Handle unknown routes
+// 404 handler
 app.use((req, res) => {
   res.status(404).json({ error: 'Route not found' });
 });
 
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`Server is running on port ${PORT}`);
 });

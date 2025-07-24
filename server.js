@@ -3,7 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
-import usersRouter from './routes/users.js';
+import usersRouter from './routes/users.js'; 
 
 dotenv.config();
 const app = express();
@@ -19,11 +19,17 @@ app.get('/', (req, res) => {
   res.send('Welcome to the Users API');
 });
 
-app.use('/users', usersRouter);
+app.use('/users', usersRouter); 
 
 // 404 handler
 app.use((req, res) => {
   res.status(404).json({ error: 'Route not found' });
+});
+
+// Global error handler
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ error: 'Something went wrong!' });
 });
 
 app.listen(PORT, () => {

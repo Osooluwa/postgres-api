@@ -1,11 +1,11 @@
-// routes/items.js
+// routes/users.js
 import express from 'express';
 import pool from '../db.js';
 
 const router = express.Router();
 
 // POST /users - Add a new user
-router.post('/users', async (req, res) => {
+router.post('/', async (req, res) => {
   const { name, email } = req.body;
 
   if (!name || !email) {
@@ -25,7 +25,7 @@ router.post('/users', async (req, res) => {
 });
 
 // GET /users - Get all users
-router.get('/users', async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const result = await pool.query('SELECT * FROM users');
     res.status(200).json(result.rows);
@@ -36,7 +36,7 @@ router.get('/users', async (req, res) => {
 });
 
 // GET /users/:id - Get user by ID
-router.get('/users/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
   const { id } = req.params;
 
   try {

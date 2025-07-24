@@ -1,0 +1,1 @@
+A simple REST API built with Node.js, Express, and PostgreSQL on Windows.
